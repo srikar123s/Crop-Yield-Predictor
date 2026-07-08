@@ -15,12 +15,11 @@ import plotly.graph_objects as go
 @st.cache_resource
 def load_artifacts():
     model = TabNetRegressor()
-    model.load_model(r"C:\Users\srikar\OneDrive\Desktop\all projects\predictive\tabnet_crop_yield_model_v2.zip")
+    model.load_model("tabnet_crop_yield_model_v2.zip")
 
-    scaler_X = joblib.load(r"C:\Users\srikar\OneDrive\Desktop\all projects\predictive\scaler_X.pkl")
-    scaler_y = joblib.load(r"C:\Users\srikar\OneDrive\Desktop\all projects\predictive\scaler_y.pkl")
-    label_encoders = joblib.load(r"C:\Users\srikar\OneDrive\Desktop\all projects\predictive\label_encoders.pkl")
-
+    scaler_X = joblib.load("scaler_X.pkl")
+    scaler_y = joblib.load("scaler_y.pkl")
+    label_encoders = joblib.load("label_encoders.pkl")
     return model, scaler_X, scaler_y, label_encoders
 
 
@@ -107,7 +106,7 @@ st.markdown("""
 # 🌾 Header
 # -----------------------------------------------------
 st.markdown("""
-<h2>🌾 Intelligent Crop Yield Predictor</h2>
+<h2>🌾 Crop Yield Predictor</h2>
 <p style='text-align:center; color:gray;'>
 Leverage AI-powered predictions for sustainable agriculture 🌱
 </p>
@@ -194,6 +193,25 @@ if submitted:
                 st.success("✅ Prediction Complete!")
 
                 # Metric cards
+                st.markdown("""
+<style>
+[data-testid="stMetric"] {
+    color: black;
+}
+
+[data-testid="stMetric"] label {
+    color: black !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: black !important;
+}
+
+[data-testid="stMetricLabel"] {
+    color: black !important;
+}
+</style>
+""", unsafe_allow_html=True)
                 st.markdown("### 🌾 Predicted Yield Summary")
                 col1, col2, col3 = st.columns(3)
                 col1.metric("Predicted Yield", f"{result} tons/ha")
